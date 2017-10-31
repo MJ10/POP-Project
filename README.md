@@ -1,4 +1,4 @@
-# Network Proxy (with LFU caching)
+# Chess in Java with Swing Library
 
 This repository contains code for the Project 'Chess in Java with Swing Library' for the course IT206 - Paradigms of Programming.
 
