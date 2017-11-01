@@ -5,14 +5,15 @@ import com.it.jchess.ui.Tile;
 
 import java.util.ArrayList;
 
-public class Pawn extends Piece {
+public class King extends Piece {
 
-    public Pawn(String id, String path, int color) {
+    public King(String id, String path, int color) {
         setId(id);
         setPath(path);
         setColor(color);
     }
 
+    @Override
     public ArrayList<Tile> movePiece(Tile[][] pos, int locX, int locY) {
         return null;
     }
