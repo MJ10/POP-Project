@@ -5,16 +5,18 @@ import com.it.jchess.ui.Tile;
 
 import java.util.ArrayList;
 
-public class Queen extends Piece {
+public class Queen extends Bishop {
 
     public Queen(String id, String path, int color) {
-        setId(id);
-        setPath(path);
-        setColor(color);
+        super(id,path,color);
+
     }
 
     @Override
     public ArrayList<Tile> movePiece(Tile[][] pos, int locX, int locY) {
-        return null;
+        possibleMoves.clear();
+        possibleMoves.addAll(super.movePiece(pos,locX,locY));
+        possibleMoves.addAll(super.getRook(pos,locX,locY));
+        return possibleMoves;
     }
 }
