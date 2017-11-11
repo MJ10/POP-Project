@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public abstract class Piece implements Cloneable {
 
-    private int color;
+    public int color;
     private String id = null;
     private String path;
     protected ArrayList<Tile> possibleMoves = new ArrayList<>();

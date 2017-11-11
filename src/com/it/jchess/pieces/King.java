@@ -20,8 +20,78 @@ public class King extends Piece {
 
     @Override
     public ArrayList<Tile> movePiece(Tile[][] pos, int locX, int locY) {
-        return null;
+        possibleMoves.clear();
+        if (locX > 0) {
+            if (pos[locX - 1][locY].getPiece() == null)
+                possibleMoves.add(pos[locX - 1][locY]);
+
+            if (locY > 0) {
+                if (pos[locX][locY - 1].getPiece() == null)
+                    possibleMoves.add(pos[locX][locY - 1]);
+                else {
+                    if (pos[locX][locY - 1].getPiece().color != this.color)
+                        possibleMoves.add(pos[locX][locY - 1]);
+                }
+                if (pos[locX - 1][locY - 1].getPiece() == null)
+                    possibleMoves.add(pos[locX - 1][locY - 1]);
+                else {
+                    if (pos[locX - 1][locY - 1].getPiece().color != this.color)
+                        possibleMoves.add(pos[locX - 1][locY - 1]);
+                }
+            }
+            if (locY < 7) {
+                if (pos[locX][locY + 1].getPiece() == null)
+                    possibleMoves.add(pos[locX][locY + 1]);
+                else {
+                    if (pos[locX][locY + 1].getPiece().color != this.color)
+                        possibleMoves.add(pos[locX][locY + 1]);
+                }
+                if (pos[locX - 1][locY + 1].getPiece() == null)
+                    possibleMoves.add(pos[locX - 1][locY + 1]);
+                else {
+                    if (pos[locX - 1][locY + 1].getPiece().color != this.color)
+                        possibleMoves.add(pos[locX - 1][locY + 1]);
+
+                }
+            }
+            if (locX < 7) {
+                if (pos[locX + 1][locY].getPiece() == null)
+                    possibleMoves.add(pos[locX + 1][locY]);
+
+                if (locY > 0) {
+                    if (pos[locX][locY - 1].getPiece() == null)
+                        possibleMoves.add(pos[locX][locY - 1]);
+                    else {
+                        if (pos[locX][locY - 1].getPiece().color != this.color)
+                            possibleMoves.add(pos[locX][locY - 1]);
+                    }
+                    if (pos[locX + 1][locY - 1].getPiece() == null)
+                        possibleMoves.add(pos[locX + 1][locY - 1]);
+                    else {
+                        if (pos[locX + 1][locY - 1].getPiece().color != this.color)
+                            possibleMoves.add(pos[locX + 1][locY - 1]);
+                    }
+                }
+                if (locY < 7) {
+                    if (pos[locX][locY + 1].getPiece() == null)
+                        possibleMoves.add(pos[locX][locY - 1]);
+                    else {
+                        if (pos[locX][locY + 1].getPiece().color != this.color)
+                            possibleMoves.add(pos[locX][locY + 1]);
+                    }
+                    if (pos[locX + 1][locY + 1].getPiece() == null)
+                        possibleMoves.add(pos[locX + 1][locY + 1]);
+                    else {
+                        if (pos[locX + 1][locY + 1].getPiece().color != this.color)
+                            possibleMoves.add(pos[locX + 1][locY + 1]);
+                    }
+                }
+            }
+        }
+            return possibleMoves;
+
     }
+
 
     public boolean isInDanger(Tile boardState[][]) {
         return false;
