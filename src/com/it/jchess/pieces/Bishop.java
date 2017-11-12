@@ -5,10 +5,12 @@ import com.it.jchess.ui.Tile;
 
 import java.util.ArrayList;
 
-public class Bishop extends Rook {
+public class Bishop extends Piece {
 
     public Bishop(String id, String path, int color) {
-        super(id,path,color);
+        setId(id);
+        setPath(path);
+        setColor(color);
     }
 
     public ArrayList<Tile> getRook(Tile[][] pos,int locX,int locY){
