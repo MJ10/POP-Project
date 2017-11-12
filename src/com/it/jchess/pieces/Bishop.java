@@ -11,13 +11,13 @@ public class Bishop extends Piece {
         setId(id);
         setPath(path);
         setColor(color);
+
     }
 
-    public ArrayList<Tile> getRook(Tile[][] pos,int locX,int locY){
 
-        Rook r =new Rook(getPath(),getId(),getColor());
-        return r.movePiece(pos,locX,locY);
-    }
+
+
+
 
     @Override
     public ArrayList<Tile> movePiece(Tile[][] pos, int locX, int locY) {
