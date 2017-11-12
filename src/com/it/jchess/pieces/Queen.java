@@ -1,6 +1,5 @@
 package com.it.jchess.pieces;
 
-import com.it.jchess.Piece;
 import com.it.jchess.ui.Tile;
 
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ public class Queen extends Bishop {
     @Override
     public ArrayList<Tile> movePiece(Tile[][] pos, int locX, int locY) {
         possibleMoves.clear();
-        possibleMoves.addAll(super.movePiece(pos,locX,locY));
+        possibleMoves.addAll(super.movePiece(pos, locX, locY));
         possibleMoves.addAll(super.getRook(pos,locX,locY));
         return possibleMoves;
     }

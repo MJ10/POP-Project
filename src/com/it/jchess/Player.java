@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * This class defines a player behaviour.
  */
 public class Player implements Serializable {
-
+    public static final long serialVersionUID = -7121562930867472582L;
     private String name;
     private int played;
     private int won;
@@ -29,10 +29,6 @@ public class Player implements Serializable {
 
     public int getWon() {
         return won;
-    }
-
-    public float getWinPercent() {
-        return ((float) won / played) * 100;
     }
 
     public void wonGame() {
@@ -68,10 +64,10 @@ public class Player implements Serializable {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            JOptionPane.showMessageDialog(null, "Unable to read the required Game files !!");
+            JOptionPane.showMessageDialog(null, "Cannot read game files");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Game Data File Corrupted !! Click Ok to Continue Builing New File");
+            JOptionPane.showMessageDialog(null, "Game file is damaged. Creating new Game File");
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -120,16 +116,16 @@ public class Player implements Serializable {
             inputFile.delete();
             output.close();
             File newf = new File(System.getProperty("user.dir") + File.separator + "UserData.dat");
-            if (outputFile.renameTo(newf))
+            if (!outputFile.renameTo(newf))
                 System.out.println("Cannot rename file!");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Unable to read/write the required Game files !! Press ok to continue");
+            JOptionPane.showMessageDialog(null, "Cannot read game files");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Game Data File Corrupted !! Click Ok to Continue Builing New File");
+            JOptionPane.showMessageDialog(null, "Game file is damaged. Creating new Game File");
         } catch (Exception e) {
             e.printStackTrace();
         }

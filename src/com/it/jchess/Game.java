@@ -16,7 +16,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * @author Moksh Jain
@@ -73,7 +72,75 @@ public class Game extends JFrame implements MouseListener {
     public static int timeRemaining = 60;
 
     private Game() {
+        defineLayouts();
+
+        //Time Slider Details
+        setupTimer();
+
+        //Fetching Details of all Players
+        fetchPlayers();
+
+        //Defining the Player Box in Control Panel
+        setupPlayerBox();
+
+        setupBoard();
+
+        setupSidePanel();
+
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    private void setupSidePanel() {
+        showPlayer = new JPanel(new FlowLayout());
+        showPlayer.add(timeSlider);
+
+        JLabel setTime = new JLabel("Set Timer(in mins):");
+        start = new Button("Start");
+        start.setBackground(Color.black);
+        start.setForeground(Color.white);
+        start.addActionListener(new StartListener());
+        start.setPreferredSize(new Dimension(120, 40));
+        setTime.setFont(new Font("Arial", Font.BOLD, 16));
+
+        label = new JLabel("Time Starts now", JLabel.CENTER);
+        label.setFont(new Font("SERIF", Font.BOLD, 30));
+        displayTime = new JPanel(new FlowLayout());
+        time = new JPanel(new GridLayout(3, 3));
+        time.add(setTime);
+        time.add(showPlayer);
+        displayTime.add(start);
+        time.add(displayTime);
+        controlPanel.add(time);
+        board.setMinimumSize(new Dimension(800, 700));
+
+        controlPanel.setMinimumSize(new Dimension(285, 700));
+        split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, temp, controlPanel);
+
+        content.add(split);
+    }
+
+    private void fetchPlayers() {
+        wPlayers = Player.fetchPlayerDetails();
+        for (Player wPlayer1 : wPlayers) wNames.add(wPlayer1.getName());
+
+        bPlayers = Player.fetchPlayerDetails();
+        for (Player bPlayer1 : bPlayers) wNames.add(bPlayer1.getName());
+        wNamesList = wNames.toArray(wNamesList);
+        bNamesList = bNames.toArray(bNamesList);
+    }
+
+    private void setupTimer() {
         timeRemaining = 60;
+        timeSlider.setMinimum(1);
+        timeSlider.setMaximum(15);
+        timeSlider.setValue(1);
+        timeSlider.setMajorTickSpacing(2);
+        timeSlider.setPaintLabels(true);
+        timeSlider.setPaintTicks(true);
+        timeSlider.addChangeListener(new TimeChangeListener());
+    }
+
+    private void defineLayouts() {
         timeSlider = new JSlider();
         move = "White";
         wName = null;
@@ -89,32 +156,7 @@ public class Game extends JFrame implements MouseListener {
         board.setMinimumSize(new Dimension(800, 700));
         ImageIcon img = new ImageIcon(this.getClass().getResource("ui/images/icon.png"));
         this.setIconImage(img.getImage());
-
-        //Time Slider Details
-        timeSlider.setMinimum(1);
-        timeSlider.setMaximum(15);
-        timeSlider.setValue(1);
-        timeSlider.setMajorTickSpacing(2);
-        timeSlider.setPaintLabels(true);
-        timeSlider.setPaintTicks(true);
-        timeSlider.addChangeListener(new TimeChangeListener());
-
-        //Fetching Details of all Players
-        wPlayers = Player.fetchPlayerDetails();
-        Iterator<Player> wIterator = wPlayers.iterator();
-        while (wIterator.hasNext())
-            wNames.add(wIterator.next().getName());
-
-        bPlayers = Player.fetchPlayerDetails();
-        Iterator<Player> bIterator = bPlayers.iterator();
-        while (bIterator.hasNext())
-            wNames.add(bIterator.next().getName());
-        wNamesList = wNames.toArray(wNamesList);
-        bNamesList = bNames.toArray(bNamesList);
-
-        Tile tile;
         board.setBorder(BorderFactory.createLoweredBevelBorder());
-        Piece P;
         content = getContentPane();
         setSize(WIDTH, HEIGHT);
         setTitle("JChess");
@@ -124,7 +166,9 @@ public class Game extends JFrame implements MouseListener {
         controlPanel.setLayout(new GridLayout(3, 3));
         controlPanel.setBorder(BorderFactory.createTitledBorder(null, "Statistics", TitledBorder.TOP, TitledBorder.CENTER, new Font("Lucida Calligraphy", Font.PLAIN, 20), Color.ORANGE));
 
-        //Defining the Player Box in Control Panel
+    }
+
+    private void setupPlayerBox() {
         wPlayer = new JPanel();
         wPlayer.setBorder(BorderFactory.createTitledBorder(null, "White Player", TitledBorder.TOP, TitledBorder.CENTER, new Font("times new roman", Font.BOLD, 18), Color.RED));
         wPlayer.setLayout(new BorderLayout());
@@ -176,8 +220,10 @@ public class Game extends JFrame implements MouseListener {
 
         controlPanel.add(wPlayer);
         controlPanel.add(bPlayer);
+    }
 
-        //Defining all the Tiles
+    private void setupBoard() {
+        Piece P;
         boardState = new Tile[8][8];
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++) {
@@ -218,55 +264,11 @@ public class Game extends JFrame implements MouseListener {
                     P = bPawns[j];
                 else if (i == 6)
                     P = wPawns[j];
-                tile = new Tile(i, j, P);
+                tile = new Tile(j, i, P);
                 tile.addMouseListener(this);
                 board.add(tile);
                 boardState[i][j] = tile;
             }
-        showPlayer = new JPanel(new FlowLayout());
-        showPlayer.add(timeSlider);
-
-        JLabel setTime = new JLabel("Set Timer(in mins):");
-        start = new Button("Start");
-        start.setBackground(Color.black);
-        start.setForeground(Color.white);
-        start.addActionListener(new StartListener());
-        start.setPreferredSize(new Dimension(120, 40));
-        setTime.setFont(new Font("Arial", Font.BOLD, 16));
-
-        label = new JLabel("Time Starts now", JLabel.CENTER);
-        label.setFont(new Font("SERIF", Font.BOLD, 30));
-        displayTime = new JPanel(new FlowLayout());
-        time = new JPanel(new GridLayout(3, 3));
-        time.add(setTime);
-        time.add(showPlayer);
-        displayTime.add(start);
-        time.add(displayTime);
-        controlPanel.add(time);
-        board.setMinimumSize(new Dimension(800, 700));
-
-        //The Left Layout When Game is inactive
-//        temp=new JPanel(){
-//            private static final long serialVersionUID = 1L;
-//
-//            @Override
-//            public void paintComponent(Graphics g) {
-//                try {
-//                    image = ImageIO.read(this.getClass().getResource("ui/images/clash.jpg"));
-//                } catch (IOException ex) {
-//                    System.out.println("not found");
-//                }
-//
-//                g.drawImage(image, 0, 0, null);
-//            }
-//        };
-//
-//        temp.setMinimumSize(new Dimension(800,700));
-        controlPanel.setMinimumSize(new Dimension(285, 700));
-        split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, temp, controlPanel);
-
-        content.add(split);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     public void switchTurns() {
@@ -300,8 +302,7 @@ public class Game extends JFrame implements MouseListener {
             return bKing;
     }
 
-    private void clearDestinations(ArrayList<Tile> destinations)      //Function to clear the last move's destinations
-    {
+    private void clearDestinations(ArrayList<Tile> destinations) {
         for (Tile destination : destinations) destination.removePossibleDestination();
     }
 
@@ -324,11 +325,10 @@ public class Game extends JFrame implements MouseListener {
         if (newBoardState[toTile.locX][toTile.locY].getPiece() != null)
             newBoardState[toTile.locX][toTile.locY].removePiece();
 
-        newBoardState[toTile.locX][toTile.locY]
-                .setPiece(newBoardState[fromTile.locX][fromTile.locY].getPiece());
+        newBoardState[toTile.locX][toTile.locY].setPiece(newBoardState[fromTile.locX][fromTile.locY].getPiece());
         if (newBoardState[toTile.locX][toTile.locY].getPiece() instanceof King) {
             ((King) (newBoardState[toTile.locX][toTile.locY].getPiece())).setLocX(toTile.locX);
-            ((King) (newBoardState[toTile.locX][toTile.locY].getPiece())).setLocY(toTile.locX);
+            ((King) (newBoardState[toTile.locX][toTile.locY].getPiece())).setLocY(toTile.locY);
         }
 
         newBoardState[fromTile.locX][fromTile.locY].removePiece();
@@ -450,7 +450,6 @@ public class Game extends JFrame implements MouseListener {
         showPlayer.add(timeSlider);
 
         split.remove(board);
-        split.add(temp);
         wNewPlayer.enable();
         bNewPlayer.enable();
         wSelect.enable();
@@ -477,9 +476,9 @@ public class Game extends JFrame implements MouseListener {
                 if (tile.getPiece() instanceof King)
                     destinations = filterDestinations(destinations, tile);
                 else {
-                    if (boardState[getKing(turn).getLocX()][getKing(turn).getLocY()].isCheck())
+                    if (boardState[getKing(turn).getLocX()][getKing(turn).getLocY()].isCheck()) {
                         destinations = new ArrayList<>(filterDestinations(destinations, tile));
-                    else if (!destinations.isEmpty() && isKingInDanger(tile, destinations.get(0)))
+                    } else if (!destinations.isEmpty() && isKingInDanger(tile, destinations.get(0)))
                         destinations.clear();
                 }
                 highlightPossibleDestinations(destinations);
@@ -508,7 +507,7 @@ public class Game extends JFrame implements MouseListener {
                             onGameEnd();
                         }
                     }
-                    if (getKing(turn).isInDanger(boardState) == false)
+                    if (!getKing(turn).isInDanger(boardState))
                         boardState[getKing(turn).getLocX()][getKing(turn).getLocY()].removeCheck();
                     if (tile.getPiece() instanceof King) {
                         ((King) tile.getPiece()).setLocX(tile.locX);
@@ -588,7 +587,6 @@ public class Game extends JFrame implements MouseListener {
             wNewPlayer.disable();
             wSelect.disable();
             wSelect.disable();
-//            split.remove(temp);
             split.add(board);
             showPlayer.remove(timeSlider);
             mov = new JLabel("Move:");
@@ -719,7 +717,7 @@ public class Game extends JFrame implements MouseListener {
         }
     }
 
-    public static void main(String[] args) {
+    private static void setupPieces() {
         wRook1 = new Rook("WR01", "images/WhiteRook.png", 0);
         wRook2 = new Rook("WR02", "images/WhiteRook.png", 0);
         bRook1 = new Rook("BR01", "images/BlackRook.png", 1);
@@ -742,8 +740,11 @@ public class Game extends JFrame implements MouseListener {
             wPawns[i] = new Pawn("WP0" + (i + 1), "images/WhitePawn.png", 0);
             bPawns[i] = new Pawn("BP0" + (i + 1), "images/BlackPawn.png", 1);
         }
+    }
 
+    public static void main(String[] args) {
         //Setting up the board
+        setupPieces();
         gameBoard = new Game();
         gameBoard.setVisible(true);
         gameBoard.setResizable(false);

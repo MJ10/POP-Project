@@ -12,6 +12,7 @@ public class Tile extends JPanel implements Cloneable {
     private boolean possibleDestination = false;
     private boolean isSelected = false;
     private boolean isCheck = false;
+    private JLabel content;
     private Piece piece;
     public int locX, locY;
 
@@ -22,7 +23,7 @@ public class Tile extends JPanel implements Cloneable {
      * @param locY:  Y co-ordinate of the cell on the chess board.
      * @param piece: Piece present on the cell
      */
-    public Tile(int locX, int locY, Piece piece) {
+    public Tile(int locY, int locX, Piece piece) {
         this.locX = locX;
         this.locY = locY;
 
@@ -43,22 +44,22 @@ public class Tile extends JPanel implements Cloneable {
     public Tile(Tile tile) throws CloneNotSupportedException {
         this.locX = tile.locX;
         this.locY = tile.locY;
-
-        if (isBlackTile(locX, locY))
+        if (isBlackTile(locX, locY)) {
             setBackground(new Color(113, 198, 113));
-        else
+        } else
             setBackground(Color.white);
 
-        if (tile.getPiece() != null)
+        if (tile.getPiece() != null) {
             setPiece(tile.getPiece().getCopy());
-        else
+        } else
             this.piece = null;
     }
 
     public void setPiece(Piece piece) {
         this.piece = piece;
         ImageIcon image = new ImageIcon(this.getClass().getResource(piece.getPath()));
-        this.add(new JLabel(image));
+        this.content = new JLabel(image);
+        this.add(content);
     }
 
     public void removePiece() {
@@ -85,10 +86,12 @@ public class Tile extends JPanel implements Cloneable {
     }
 
     public void setPossibleDestination() {
+        setBorder(BorderFactory.createLineBorder(Color.blue, 4));
         this.possibleDestination = true;
     }
 
     public void removePossibleDestination() {
+        this.setBorder(null);
         this.possibleDestination = false;
     }
 
@@ -113,7 +116,7 @@ public class Tile extends JPanel implements Cloneable {
     }
 
     private boolean isBlackTile(int locX, int locY) {
-        return (locX + locY % 2) == 0;
+        return (locX + locY) % 2 == 0;
     }
 
     public boolean isCheck() {
