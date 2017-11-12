@@ -14,8 +14,9 @@ public class Queen extends Bishop {
     @Override
     public ArrayList<Tile> movePiece(Tile[][] pos, int locX, int locY) {
         possibleMoves.clear();
-        possibleMoves.addAll(super.movePiece(pos, locX, locY));
-        possibleMoves.addAll(super.getRook(pos,locX,locY));
+        Bishop b= new Bishop(getPath(),getId(),color);
+        possibleMoves.addAll(b.movePiece(pos, locX, locY));
+        possibleMoves.addAll(b.getRook(pos,locX,locY));
         return possibleMoves;
     }
 }

@@ -12,7 +12,9 @@ public class Bishop extends Rook {
     }
 
     public ArrayList<Tile> getRook(Tile[][] pos,int locX,int locY){
-        return super.movePiece(pos,locX,locY);
+
+        Rook r =new Rook(getPath(),getId(),getColor());
+        return r.movePiece(pos,locX,locY);
     }
 
     @Override

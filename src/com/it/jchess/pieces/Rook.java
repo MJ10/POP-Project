@@ -28,9 +28,9 @@ public class Rook extends Piece {
             }
         }
 
-        for(int i =locX+1;i<=7;i++)
+        for(int i=locX+1;i<=7;i++)
         {
-            if (pos[i][locY].getPiece()==null)
+            if (pos[i][locY].getPiece() == null)
                 possibleMoves.add(pos[i][locY]);
             else
             {
@@ -52,7 +52,7 @@ public class Rook extends Piece {
             }
         }
 
-        for(int j=locY+1;j<8;j--)
+        for(int j=locY+1;j<8;j++)
         {
             if(pos[locX][j].getPiece()==null)
                 possibleMoves.add(pos[locX][j]);
