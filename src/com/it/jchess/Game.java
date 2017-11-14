@@ -164,17 +164,19 @@ public class Game extends JFrame implements MouseListener {
         controlPanel = new JPanel();
         content.setLayout(new BorderLayout());
         controlPanel.setLayout(new GridLayout(3, 3));
-        controlPanel.setBorder(BorderFactory.createTitledBorder(null, "Statistics", TitledBorder.TOP, TitledBorder.CENTER, new Font("Lucida Calligraphy", Font.PLAIN, 20), Color.ORANGE));
+        controlPanel.setBorder(BorderFactory.createTitledBorder(null, "Statistics", TitledBorder.TOP, TitledBorder.CENTER, new Font("Ubuntu", Font.PLAIN, 20), Color.black));
 
     }
 
     private void setupPlayerBox() {
         wPlayer = new JPanel();
-        wPlayer.setBorder(BorderFactory.createTitledBorder(null, "White Player", TitledBorder.TOP, TitledBorder.CENTER, new Font("times new roman", Font.BOLD, 18), Color.RED));
+        wPlayer.setBorder(BorderFactory.createTitledBorder(null, "White Player", TitledBorder.TOP, TitledBorder.CENTER, new Font("Utopia", Font.BOLD, 18), Color.BLACK));
         wPlayer.setLayout(new BorderLayout());
+        wPlayer.setBackground(new Color(255, 224, 130));
 
         bPlayer = new JPanel();
-        bPlayer.setBorder(BorderFactory.createTitledBorder(null, "Black Player", TitledBorder.TOP, TitledBorder.CENTER, new Font("times new roman", Font.BOLD, 18), Color.BLUE));
+        bPlayer.setBackground(new Color(188, 170, 164));
+        bPlayer.setBorder(BorderFactory.createTitledBorder(null, "Black Player", TitledBorder.TOP, TitledBorder.CENTER, new Font("Utopia", Font.BOLD, 18), Color.BLACK));
         bPlayer.setLayout(new BorderLayout());
 
         JPanel whiteStats = new JPanel(new GridLayout(3, 3));
@@ -187,7 +189,9 @@ public class Game extends JFrame implements MouseListener {
         bScroll = new JScrollPane(bCombo);
 
         wComboPanel.setLayout(new FlowLayout());
+        wComboPanel.setBackground(new Color(255, 224, 130));
         bComboPanel.setLayout(new FlowLayout());
+        bComboPanel.setBackground(new Color(188, 170, 164));
 
         wSelect = new Button("Select");
         bSelect = new Button("Select");
@@ -207,10 +211,11 @@ public class Game extends JFrame implements MouseListener {
         bComboPanel.add(bNewPlayer);
         wPlayer.add(wComboPanel, BorderLayout.NORTH);
         bPlayer.add(bComboPanel, BorderLayout.NORTH);
-
+        whiteStats.setBackground(new Color(255, 224, 130));
         whiteStats.add(new JLabel("Name   :"));
         whiteStats.add(new JLabel("Played :"));
         whiteStats.add(new JLabel("Won    :"));
+        blackStats.setBackground(new Color(188, 170, 164));
         blackStats.add(new JLabel("Name   :"));
         blackStats.add(new JLabel("Played :"));
         blackStats.add(new JLabel("Won    :"));
@@ -252,13 +257,13 @@ public class Game extends JFrame implements MouseListener {
                     P = wBishop1;
                 else if (i == 7 && j == 5)
                     P = wBishop2;
-                else if (i == 0 && j == 3)
-                    P = bKing;
                 else if (i == 0 && j == 4)
+                    P = bKing;
+                else if (i == 0 && j == 3)
                     P = bQueen;
-                else if (i == 7 && j == 3)
-                    P = wKing;
                 else if (i == 7 && j == 4)
+                    P = wKing;
+                else if (i == 7 && j == 3)
                     P = wQueen;
                 else if (i == 1)
                     P = bPawns[j];
@@ -591,11 +596,9 @@ public class Game extends JFrame implements MouseListener {
             showPlayer.remove(timeSlider);
             mov = new JLabel("Move:");
             mov.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-            mov.setForeground(Color.red);
             showPlayer.add(mov);
             CHNC = new JLabel(move);
             CHNC.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
-            CHNC.setForeground(Color.blue);
             showPlayer.add(CHNC);
             displayTime.remove(start);
             displayTime.add(label);
@@ -732,8 +735,8 @@ public class Game extends JFrame implements MouseListener {
         bBishop2 = new Bishop("BB02", "images/BlackBishop.png", 1);
         wQueen = new Queen("WQ", "images/WhiteQueen.png", 0);
         bQueen = new Queen("BQ", "images/BlackQueen.png", 1);
-        wKing = new King("WK", "images/WhiteKing.png", 0, 7, 3);
-        bKing = new King("BK", "images/BlackKing.png", 1, 0, 3);
+        wKing = new King("WK", "images/WhiteKing.png", 0, 7, 4);
+        bKing = new King("BK", "images/BlackKing.png", 1, 0, 4);
         wPawns = new Pawn[8];
         bPawns = new Pawn[8];
         for (int i = 0; i < 8; i++) {

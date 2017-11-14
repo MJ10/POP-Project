@@ -28,9 +28,9 @@ public class Tile extends JPanel implements Cloneable {
         this.locY = locY;
 
         if (isBlackTile(locX, locY))
-            setBackground(new Color(113, 198, 113));
+            setBackground(new Color(78, 52, 46));
         else
-            setBackground(Color.white);
+            setBackground(new Color(255, 229, 127));
 
         if (piece != null)
             setPiece(piece);
@@ -45,9 +45,9 @@ public class Tile extends JPanel implements Cloneable {
         this.locX = tile.locX;
         this.locY = tile.locY;
         if (isBlackTile(locX, locY)) {
-            setBackground(new Color(113, 198, 113));
+            setBackground(new Color(78, 52, 46));
         } else
-            setBackground(Color.white);
+            setBackground(new Color(255, 229, 127));
 
         if (tile.getPiece() != null) {
             setPiece(tile.getPiece().getCopy());
@@ -73,7 +73,7 @@ public class Tile extends JPanel implements Cloneable {
 
     public void select() {
         this.isSelected = true;
-        setBorder(BorderFactory.createLineBorder(Color.red, 6));
+        setBorder(BorderFactory.createLineBorder(new Color(0, 188, 212), 6));
     }
 
     public void deselect() {
@@ -86,7 +86,7 @@ public class Tile extends JPanel implements Cloneable {
     }
 
     public void setPossibleDestination() {
-        setBorder(BorderFactory.createLineBorder(Color.blue, 4));
+        setBorder(BorderFactory.createLineBorder(new Color(118, 255, 3), 4));
         this.possibleDestination = true;
     }
 
@@ -109,14 +109,14 @@ public class Tile extends JPanel implements Cloneable {
         this.isCheck = false;
 
         if (isBlackTile(locX, locY)) {
-            setBackground(new Color(113, 198, 113));
+            setBackground(new Color(78, 52, 46));
         } else {
-            setBackground(Color.white);
+            setBackground(new Color(255, 229, 127));
         }
     }
 
     private boolean isBlackTile(int locX, int locY) {
-        return (locX + locY) % 2 == 0;
+        return (locX + locY) % 2 == 1;
     }
 
     public boolean isCheck() {
