@@ -43,7 +43,8 @@ public class Time {
                 label.setText("Time's Up!");
                 reset();
                 start();
-                Game.gameBoard.switchTurns();
+//                Game.gameBoard.switchTurns();
+                Game.gameBoard.onGameEnd();
             }
         }
     }

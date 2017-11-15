@@ -14,7 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
@@ -53,7 +52,6 @@ public class Game extends JFrame implements MouseListener {
     private static JLabel CHNC;
     private Time timer;
     private JSlider timeSlider;
-    private BufferedImage image;
     private Button start, wSelect, bSelect, wNewPlayer, bNewPlayer;
     private JScrollPane wScroll, bScroll;
 
@@ -124,7 +122,7 @@ public class Game extends JFrame implements MouseListener {
         for (Player wPlayer1 : wPlayers) wNames.add(wPlayer1.getName());
 
         bPlayers = Player.fetchPlayerDetails();
-        for (Player bPlayer1 : bPlayers) wNames.add(bPlayer1.getName());
+        for (Player bPlayer1 : bPlayers) bNames.add(bPlayer1.getName());
         wNamesList = wNames.toArray(wNamesList);
         bNamesList = bNames.toArray(bNamesList);
     }
@@ -428,7 +426,7 @@ public class Game extends JFrame implements MouseListener {
 
 
     @SuppressWarnings("deprecation")
-    private void onGameEnd() {
+    public void onGameEnd() {
         clearDestinations(destinations);
         displayTime.disable();
         timer.timer.stop();
@@ -627,7 +625,7 @@ public class Game extends JFrame implements MouseListener {
             tempPlayer = null;
             String n = (color == 0) ? wName : bName;
             JComboBox<String> jComboBox = (color == 0) ? wCombo : bCombo;
-            JComboBox<String> ojComboBox = (color == 0) ? bCombo : wCombo;
+            JComboBox<String> ojComboBox = (color == 0) ? wCombo : bCombo;
             ArrayList<Player> players = (color == 0) ? wPlayers : bPlayers;
             ArrayList<Player> oPlayer = Player.fetchPlayerDetails();
             if (oPlayer.isEmpty())

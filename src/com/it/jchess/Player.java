@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * This class defines a player behaviour.
  */
 public class Player implements Serializable {
+
     public static final long serialVersionUID = -7121562930867472582L;
     private String name;
     private int played;
