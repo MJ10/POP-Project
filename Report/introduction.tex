@@ -1,0 +1,13 @@
+\chapter{Introduction}
+
+The aim of the project is to implement the chess game which can be played by two users against each other.We make use of the JAVA Swing library, among other OOP features of Java to implement the project.It also provides a user-friendly environment and also the statistics of individual players can also be stored.We also time the game. Our implementation of Chess is for two players (no Artificial Intelligence). It is played on an 8x8 checkered board, with a dark square in each player’s lower left corner.
+
+\section{Methodology}
+\paragraph{}
+The approach was to create class for the Game (Main Class), Player and the pieces. Since the all pieces can logically be represented by a Piece class, an abstract Piece class is created, which is further is inherited by all the pieces. This class contains some utility methods to get and set properties and an abstract method movePiece which returns possible moves, for a given piece at a given state. 
+
+The Game class contains methods for setting up the Board, setting up the side panel, handling the clicks and maintaining the layout. The Player class contains methods for saving the Player data to a game data file and also retrieving it from the same along with some utility methods to get and set properties.
+
+\section{System Specifications}
+\paragraph{}
+Java is a platform-independent language. The game only requires a Java Runtime Environment installed to function properly. The game was developed using OpenJDK 1.8.0\_144 on Ubuntu 16.04.
